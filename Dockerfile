@@ -26,6 +26,7 @@ sdkmanager --sdk_root=$ANDROID_HOME "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 # Install Fastlane
 apt-get update && \
 apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby-full && \
+gem update --system 3.2.3 && \
 gem install rake && \
 gem install fastlane && \
 gem install bundler && \
