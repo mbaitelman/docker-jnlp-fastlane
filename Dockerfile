@@ -3,7 +3,6 @@ FROM jenkins/inbound-agent:${agent_version}-jdk11
 
 USER root
 
-
 ARG ANDROID_VERSIONS="platforms;android-30 platforms;android-31"
 ENV ANDROID_SDK_URL https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
 ENV ANDROID_BUILD_TOOLS_VERSION 31.0.0
