@@ -9,28 +9,30 @@ ENV ANDROID_BUILD_TOOLS_VERSION 31.0.0
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/bin
 
-RUN mkdir "$ANDROID_HOME" .android && \
+RUN mkdir "$ANDROID_HOME" .android /opt/bundle && chown jenkins /opt/bundle && \
     cd "$ANDROID_HOME" && \
     apt update && apt install curl unzip && curl -o sdk.zip $ANDROID_SDK_URL && \
     unzip sdk.zip && \
-    rm sdk.zip && \
+    rm sdk.zip 
 # Download Android SDK
-yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME && \
+RUN yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME && \
 sdkmanager --update --sdk_root=$ANDROID_HOME && \
 sdkmanager --sdk_root=$ANDROID_HOME "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
     $ANDROID_VERSIONS \
     "platform-tools" \
     "extras;android;m2repository" \
-    "extras;google;m2repository" && \
+    "extras;google;m2repository" 
 # Install Fastlane
-apt-get update && \
+RUN apt-get update && \
 apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby-full && \
 gem install rake && \
 gem install fastlane && \
-gem install bundler && \
+gem install bundler 
 # Clean up
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 apt-get autoremove -y && \
-apt-get clean
+apt-get clean 
 
 USER jenkins
+
+RUN bundle config set --local path /opt/bundle
