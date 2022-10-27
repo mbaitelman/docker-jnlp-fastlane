@@ -29,6 +29,8 @@ apt-get install --no-install-recommends -y --allow-unauthenticated build-essenti
 gem install rake && \
 gem install fastlane && \
 gem install bundler 
+#give .android folder permissions to jenkins 
+RUN chown jenkins: /home/jenkins/.android
 # Clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 apt-get autoremove -y && \
