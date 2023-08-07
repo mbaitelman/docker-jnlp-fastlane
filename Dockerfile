@@ -10,13 +10,9 @@ ENV ANDROID_BUILD_TOOLS_VERSION 31.0.0
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/bin
 
-# Install zip
-RUN apt-get update && \
-apt-get install --no-install-recommends -y zip
-
 RUN mkdir "$ANDROID_HOME" .android /opt/bundle && chown jenkins /opt/bundle && \
     cd "$ANDROID_HOME" && \
-    apt update && apt install curl unzip && curl -o sdk.zip $ANDROID_SDK_URL && \
+    apt update && apt install -y curl unzip && curl -o sdk.zip $ANDROID_SDK_URL && \
     unzip sdk.zip && \
     rm sdk.zip 
 # Download Android SDK
