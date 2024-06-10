@@ -1,5 +1,5 @@
 ARG agent_version=3192.v713e3b_039fb_e-1
-FROM jenkins/inbound-agent:${agent_version}-jdk11
+FROM jenkins/inbound-agent:${agent_version}-jdk17
 
 USER root
 
